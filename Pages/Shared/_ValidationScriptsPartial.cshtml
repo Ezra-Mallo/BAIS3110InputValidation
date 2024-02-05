@@ -1,0 +1,22 @@
+﻿<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    function isFormValid(aForm) {
+        var nam = aForm.UserName.value;
+        var msg = aForm.MessageText.value;
+
+
+        const namRegex = /^[A-Za-z\s]{3,}$/; // Allow names with spaces and at least 3 characters
+        const msgRegex = /^<b>.*?<\/b>$|^<i>.*?<\/i>$|^<u>.*?<\/u>$/;
+
+        if (nam.length < 3 || !namRegex.test(nam)) {
+            alert('Invalid name format. Name must have at least 3 characters and can contain spaces.');
+            aForm.UserName.focus();
+            isValid = false;
+        } else if (msg.length < 3 || !msgRegex.test(msg)) {
+            alert('Invalid message format. Message must match the specified format.');
+            aForm.MessageText.focus();
+            isValid = false;
+        }
+    }
+</script>

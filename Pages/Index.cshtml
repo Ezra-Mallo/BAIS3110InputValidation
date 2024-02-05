@@ -1,0 +1,55 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<script>
+
+    void submitBtn_Click(object sender, EventArgs e)
+    {
+        // Encode the string input
+        StringBuilder sb = new StringBuilder(HttpUtility.HtmlEncode(htmlInputTxt.Text));
+        // Selectively allow  and <i>
+        sb.Replace("&lt;b&gt;", "<b>");
+        sb.Replace("&lt;/b&gt;", "");
+        sb.Replace("&lt;i&gt;", "<i>");
+        sb.Replace("&lt;/i&gt;", "");
+        Response.Write(sb.ToString());
+    }
+</script>
+
+
+<form name="BAIS3110InputValidationForm" method="post">
+    <h1>Name</h1>
+    <input size="80" asp-for="UserName">
+    <br />
+    @if (Model.NameResponse != null)
+    {
+        @Model.NameResponse
+        <br />
+        @Html.Raw(Model.NameResponse)
+    }
+    <br /><br />
+    <h1>Message Board</h1>
+    <asp:textarea cols="40" rows="4" asp-for="MessageText" Runat="server"></asp:textarea>
+
+@*     <asp:TextBox ID="htmlInputTxt" Runat="server" TextMode="MultiLine" Width="318px" Height="168px"></asp:TextBox>
+ *@
+
+
+
+    <br />
+    <br />
+    @if (Model.MessageResponse != null)
+    {
+        @Html.Raw(Model.MessageResponse)
+    }
+    <hr />
+    <br />
+    <h1>Filename</h1>
+    <input size="80" name="UserName">
+    <br />
+    <br />
+    <hr />
+    <asp:Button ID="submitBtn" Runat="server" Text="Submit" OnClick="submitBtn_Click" />
+</form>
